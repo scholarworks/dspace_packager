@@ -183,16 +183,17 @@ def process_mets (mets_file,parentColl = nil)
         thumbnailId = nil
         case newFile.parent.parent.attr('USE') # grabbing parent.parent seems off, but it works.
         when "THUMBNAIL"
-#          newFileName = newFile.attr('xlink:href')
-#          puts newFileName + " -> " + originalFileName
-#          File.rename(@bitstream_dir + "/" + newFileName, @bitstream_dir + "/" + originalFileName)
-#          file = File.open(@bitstream_dir + "/" + originalFileName)
+          newFileName = newFile.attr('xlink:href')
+          puts newFileName + " -> " + originalFileName
+          File.rename(@bitstream_dir + "/" + newFileName, @bitstream_dir + "/" + originalFileName)
+          file = File.open(@bitstream_dir + "/" + originalFileName)
 
-          # sufiaFile = Sufia::UploadedFile.create(file: file)
+          sufiaFile = Sufia::UploadedFile.create(file: file)
+          sufiaFile.save
           # thumbnailId = sufiaFile.id
 
-#          uploadedFiles.push(Sufia::UploadedFile.create(file: file))
-#          file.close
+          uploadedFiles.push(sufiaFile)
+          file.close
           ## params["thumbnail_id"] << sufiaFile.id
         when "TEXT"
         when "ORIGINAL"
@@ -200,8 +201,9 @@ def process_mets (mets_file,parentColl = nil)
           puts newFileName + " -> " + originalFileName
           File.rename(@bitstream_dir + "/" + newFileName, @bitstream_dir + "/" + originalFileName)
           file = File.open(@bitstream_dir + "/" + originalFileName)
-          # sufiaFile = Sufia::UploadedFile.create(file: file)
-          uploadedFiles.push(Sufia::UploadedFile.create(file: file))
+          sufiaFile = Sufia::UploadedFile.create(file: file)
+          sufiaFile.save
+          uploadedFiles.push(sufiaFile)
           file.close
         when "LICENSE"
           newFileName = newFile.attr('xlink:href')
