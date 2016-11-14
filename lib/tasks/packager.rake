@@ -183,14 +183,16 @@ def process_mets (mets_file,parentColl = nil)
         thumbnailId = nil
         case newFile.parent.parent.attr('USE') # grabbing parent.parent seems off, but it works.
         when "THUMBNAIL"
-          newFileName = newFile.attr('xlink:href')
-          puts newFileName + " -> " + originalFileName
-          File.rename(@bitstream_dir + "/" + newFileName, @bitstream_dir + "/" + originalFileName)
-          file = File.open(@bitstream_dir + "/" + originalFileName)
+#          newFileName = newFile.attr('xlink:href')
+#          puts newFileName + " -> " + originalFileName
+#          File.rename(@bitstream_dir + "/" + newFileName, @bitstream_dir + "/" + originalFileName)
+#          file = File.open(@bitstream_dir + "/" + originalFileName)
+
           # sufiaFile = Sufia::UploadedFile.create(file: file)
           # thumbnailId = sufiaFile.id
-          uploadedFiles.push(Sufia::UploadedFile.create(file: file))
-          file.close
+
+#          uploadedFiles.push(Sufia::UploadedFile.create(file: file))
+#          file.close
           ## params["thumbnail_id"] << sufiaFile.id
         when "TEXT"
         when "ORIGINAL"
