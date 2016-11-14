@@ -220,6 +220,10 @@ def process_mets (mets_file,parentColl = nil)
 
       end
 
+      puts "-------- UpLoaded Files ----------"
+      puts uploadedFiles
+      puts "----------------------------------"
+
       item = createItem(params,depositor) unless @debugging
       workFiles = AttachFilesToWorkJob.perform_now(item,uploadedFiles) unless @debugging
       # workFiles.save
