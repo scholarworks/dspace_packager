@@ -224,7 +224,9 @@ def process_mets (mets_file,parentColl = nil)
       puts uploadedFiles
       puts "----------------------------------"
 
+      puts "** Creating Item..."
       item = createItem(params,depositor) unless @debugging
+      puts "** Attaching Files..."
       workFiles = AttachFilesToWorkJob.perform_now(item,uploadedFiles) unless @debugging
       # workFiles.save
       # puts workFiles
