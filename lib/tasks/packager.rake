@@ -85,6 +85,7 @@ def unzip_package(zip_file,parentColl = nil)
       end
     end
     if File.exist?(File.join(file_dir, "mets.xml"))
+      File.rename(zpath,@input_dir + "/complete/" + zip_file)
       return process_mets(File.join(file_dir,"mets.xml"),parentColl)
     else
       puts "No METS data found in package."
