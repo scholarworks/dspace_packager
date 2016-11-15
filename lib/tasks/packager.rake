@@ -221,7 +221,7 @@ def process_mets (mets_file,parentColl = nil)
         # uploadedFiles.push(Sufia::UploadedFile.create(file: file))
         ########################################################################################################################
 
-        sleep(10) # Sleeping 10 seconds while the file upload completes for large files...
+        # sleep(10) # Sleeping 10 seconds while the file upload completes for large files...
 
       end
 
