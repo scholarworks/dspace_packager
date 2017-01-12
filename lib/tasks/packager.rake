@@ -142,6 +142,7 @@ def process_mets (mets_file,parentColl = nil)
     case dom.root.attr("TYPE")
     when "DSpace COMMUNITY"
       type = "admin_set"
+      puts params
       @coverage = params["title"][0]
       puts "*** COMMUNITY ["+@coverage+"] ***"
       # puts params
@@ -207,11 +208,12 @@ def process_mets (mets_file,parentColl = nil)
           uploadedFiles.push(sufiaFile)
           file.close
         when "LICENSE"
-          newFileName = newFile.attr('xlink:href')
-          puts "license text: " + @bitstream_dir + "/" + newFileName
-          file = File.open(@bitstream_dir + "/" + newFileName, "rb")
-          params["rights_statement"] << file.read
-          file.close
+          # Temp commented to deal with PDFs
+          # newFileName = newFile.attr('xlink:href')
+          # puts "license text: " + @bitstream_dir + "/" + newFileName
+          # file = File.open(@bitstream_dir + "/" + newFileName, "rb")
+          # params["rights_statement"] << file.read
+          # file.close
         end
         # puts newFile.class
         # puts newFile.attr('xlink:href')
@@ -257,7 +259,11 @@ end
 
 
 def createItem (params, depositor, parent = nil)
-  item = Thesis.new(id: ActiveFedora::Noid::Service.new.mint)
+  if depositor == ''
+    depositor = @defaultDepositor
+  end
+  
+  item = Work.new(id: ActiveFedora::Noid::Service.new.mint)
   if params.key?("embargo_release_date")
     # params["visibility"] = "embargo"
     params["visibility_after_embargo"] = "open"
